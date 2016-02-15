@@ -4,7 +4,7 @@ MAINTAINER Ed Marshall (ed.marshall@infinityworks.com)
 
 ENV $CATTLE_ACCESS_KEY=na \
     $CATTLE_SECRET_KEY=na \
-    $RANCHER_HOST=na
+    $RANCHER_HOST=na \
     $RUN=false
 
 CMD if [ "$RUN" = true ] ; then curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
