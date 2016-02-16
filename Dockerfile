@@ -9,9 +9,7 @@ ENV $CATTLE_ACCESS_KEY=na \
 
 RUN apk --update add curl
 
-CMD if [ "$RUN" = true ] ; then curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
-    -X PUT \
-    -H 'Accept: application/json' \
-    -H 'Content-Type: application/json' \
-    -d '{"activeValue":"", "id":"1as13", "name":"graphite.host", "source":"Database", "value":"$RANCHER_HOST"}' \
-    'http://$RANCHER_HOST:8080/v1/activesettings/1as13' fi
+COPY run.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/run.sh
+
+CMD /usr/local/bin/run.sh
