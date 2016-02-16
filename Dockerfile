@@ -7,6 +7,9 @@ ENV $CATTLE_ACCESS_KEY=na \
     $RANCHER_HOST=na \
     $RUN=false
 
+RUN apk update && \
+    apk-install curl
+
 CMD if [ "$RUN" = true ] ; then curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
     -X PUT \
     -H 'Accept: application/json' \
