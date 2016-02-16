@@ -8,7 +8,7 @@ ENV $CATTLE_ACCESS_KEY=na \
     $RUN=false
 
 RUN apk update && \
-    apk-install curl
+    apk add curl
 
 CMD if [ "$RUN" = true ] ; then curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
     -X PUT \
