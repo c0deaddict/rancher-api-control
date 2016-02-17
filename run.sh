@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ "$RUN" = true ] ; then 
     curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
