@@ -2,10 +2,7 @@
 FROM alpine
 MAINTAINER Ed Marshall (ed.marshall@infinityworks.com)
 
-ENV CATTLE_ACCESS_KEY=na \
-    CATTLE_SECRET_KEY=na \
-    RANCHER_HOST=na \
-    RUN=false
+ENV RUN=false
 
 RUN apk --update add curl
 
