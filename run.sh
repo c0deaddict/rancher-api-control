@@ -1,16 +1,10 @@
 #!/bin/sh
 
-CATTLE_CONFIG_IP=$(echo $CATTLE_CONFIG_URL | grep -E -o "([0-9]{1,3}[.]){3}[0-9]{1,3}")
+echo "Sleeping 60 seconds to wait for InfluxDB to be deployed"
+sleep 60
+echo "Running confd to obtain InfluxDB host IP address for the graphite.host value"
+/bin/confd -onetime -backend rancher -prefix /latest
 
-
-if [ "$RUN" = true ] ; then 
-    curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
-    -X PUT \
-    -H "Accept: application/json" \
-    -H "Content-Type: application/json" \
-    -d '{"activeValue":"", "id":"1as13", "name":"graphite.host", "source":"Database", "value":'${CATTLE_CONFIG_IP}'}' \
-    '${CATTLE_CONFIG_URL}/activesettings/1as13'
-    echo "API Key updated"
-else 
-    echo "run mode set to false, not updating API"
-fi
+/usr/local/bin/update.sh
+echo "API Updated. Process completed, exiting"
+exit 0
