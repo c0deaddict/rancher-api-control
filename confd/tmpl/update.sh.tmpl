@@ -1,0 +1,16 @@
+#!/bin/sh
+
+INFLUXHOST={{ range $hosts := ls "/services/influxdb/containers/0/hostname/"}} {{$hostip :=printf "/hosts/%s/agent_ip" $hosts}} {{if exists $hostip}} {{ getv $hostip }}{{end}}{{end}}
+echo "InfluxDB located on host: ${INFLUXHOST}"
+
+if [ "$RUN" = true ] ; then
+    curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
+    -X PUT \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json" \
+    -d '{"activeValue":"", "id":"1as13", "name":"graphite.host", "source":"Database", "value":'${INFLUXHOST}'}' \
+    '${CATTLE_CONFIG_URL}/activesettings/1as13'
+    echo "API Key updated"
+else
+    echo "run mode set to false, not updating API"
+fi
