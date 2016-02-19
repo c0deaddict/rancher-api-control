@@ -14,7 +14,7 @@ RUN chmod +x /usr/local/bin/run.sh
 RUN echo "http://dl-2.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories && \
     apk add --update go git gcc musl-dev && \
     git clone https://github.com/kelseyhightower/confd.git /src/confd && \
-    cd /src/confd/src/github.com/kelseyhightower/confd/ && \
+    cd /src/confd/ && \
     GOPATH=/src/confd/vendor:/src/confd go build -a -installsuffix cgo -ldflags '-extld ld -extldflags -static' -x . && \
     mv ./confd /bin/ && \
     chmod +x /bin/confd && \
