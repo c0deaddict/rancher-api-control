@@ -1,7 +1,7 @@
 [template]
 src = "update.sh.tmpl"
 dest = "/usr/local/bin/update.sh"
-mode = 755
+mode = "755"
 keys = [
     "/hosts",
     "/services",

@@ -6,11 +6,6 @@ ENV RUN=false
 
 RUN apk --update add curl
 
-COPY confd/tmpl/* /etc/confd/templates/
-COPY confd/toml/* /etc/confd/conf.d/
-COPY *.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/run.sh
-
 # Install compile and install confd
 ENV CONFD_VERSION=v0.11.0 GOMAXPROCS=2 \
     GOROOT=/usr/lib/go \
@@ -27,5 +22,10 @@ RUN apk add --update go git gcc musl-dev \
   && apk del go git gcc musl-dev \
   && rm -rf /var/cache/apk/* /opt/src \
   && mkdir -p /etc/confd/templates /etc/confd/conf.d
+
+COPY confd/tmpl/* /etc/confd/templates/
+COPY confd/toml/* /etc/confd/conf.d/
+COPY *.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/run.sh
 
 CMD /usr/local/bin/run.sh
