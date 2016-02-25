@@ -1,6 +1,6 @@
 #!/bin/sh
 
-INFLUXHOST={{ range $hosts := ls "/services/influxdb/containers/0/hostname/"}} {{$hostip :=printf "/hosts/%s/agent_ip" $hosts}} {{if exists $hostip}} {{ getv $hostip }}{{end}}{{end}}
+INFLUXHOST={{$hosts := getv "/services/influxdb/containers/0/hostname"}}{{$host := printf "/hosts/%s/agent_ip" $hosts}}{{if exists $host}}{{getv $host}}{{end}}
 echo "InfluxDB located on host: ${INFLUXHOST}"
 
 if [ "$RUN" = true ] ; then
