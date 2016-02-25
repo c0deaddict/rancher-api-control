@@ -6,4 +6,5 @@ keys = [
     "/hosts",
     "/services",
     "/containers",
+    "/services/influxdb/containers/0/hostname",
 ]
