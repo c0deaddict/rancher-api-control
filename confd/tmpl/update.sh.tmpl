@@ -1,6 +1,11 @@
 #!/bin/sh
 
-GRAPHITE_HOST={{$hosts := getv printf "/services/%s/containers/0/hostname" getenv "GRAPHITE_SERVICE"}}{{$host := printf "/hosts/%s/agent_ip" $hosts}}{{if exists $host}}{{getv $host}}{{end}}
+{{$graphite_service := getenv "GRAPHITE_SERVICE"}}
+{{$graphite_service_link := printf "/services/%s/containers/0/hostname" $graphite_service}}
+{{$hosts := getv $graphite_service_link}}
+{{$host := printf "/hosts/%s/agent_ip" $hosts}}
+GRAPHITE_HOST={{if exists $host}}{{getv $host}}{$end}}
+
 echo "Graphite located on host: ${GRAPHITE_HOST}"
 
 if [ "$RUN" = true ] ; then
